@@ -1,6 +1,8 @@
 package com.myaudiolibrary.web.Model;
 import java.util.List;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Set;
 
@@ -13,10 +15,11 @@ public class Artist {
     private Integer id;
     @Column(name = "Name")
     private String name;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "artist", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("artist")
     private List<Albums> albums;
+
+    public Artist(){};
 
     public Integer getId() {
         return id;
